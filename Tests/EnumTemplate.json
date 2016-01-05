@@ -1,0 +1,6 @@
+﻿{
+  "Employee": "Emp",
+  "Manager": "Mgr",
+  "Contractor": "Ctr",
+  "NotASerializableEnumeration": ""
+} 
