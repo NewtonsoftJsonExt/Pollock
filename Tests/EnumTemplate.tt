@@ -13,21 +13,24 @@ using System.Runtime.Serialization;
 using System.ComponentModel;
 using Newtonsoft.Json;
 <#  
-var enumTemplate = new JavaScriptSerializer()
-    .Deserialize<Dictionary<string,string>>(File.ReadAllText(Host.ResolvePath(@"EnumTemplate.json")));
+    var nameOfFile = Path.GetFileNameWithoutExtension(Host.TemplateFile);
+    var enumTemplate = new JavaScriptSerializer()
+        .Deserialize<Dictionary<string,string>>(File.ReadAllText(Host.ResolvePath(nameOfFile+".json")));
 #>
-
-namespace Tests{
-public static class EnumTemplates{
-    public static void Register()
+namespace <#= System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("NamespaceHint") #>
+{
+    public static class <#= nameOfFile #>s
     {
-        Pollock.TypeConverters.RegisterEnumWithMemberRender<EnumTemplate>();
+        public static void Register()
+        {
+            Pollock.TypeConverters.RegisterEnumWithMemberRender<EnumTemplate>();
+        }
     }
-}
 
-[TypeConverter(typeof(Pollock.EnumTypeConverter<EnumTemplate>)),
+    [TypeConverter(typeof(Pollock.EnumTypeConverter<EnumTemplate>)),
         JsonConverter(typeof(Pollock.EnumJsonConverter<EnumTemplate>))]
-public enum EnumTemplate{
+    public enum <#= nameOfFile #>
+    {
         <#= String.Join(","+Environment.NewLine+"        ", enumTemplate.Select(kv=> String.Format("[EnumMember(Value=\"{0}\")] {1}", kv.Value,kv.Key))) #>
     }
 }
