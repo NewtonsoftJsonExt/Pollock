@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Pollock
 {
-    public class EnumJsonConverter<T> : JsonConverter
+    public class EnumJsonConverter<T> : JsonConverter where T : struct
     {
         private readonly ITypeConverter _converter;
 

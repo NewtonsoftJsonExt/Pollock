@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Pollock
 {
-    public class EnumTypeConverter<T> : TypeConverter
+    public class EnumTypeConverter<T> : TypeConverter where T: struct
     {
         private readonly ITypeConverter _converter;
 
