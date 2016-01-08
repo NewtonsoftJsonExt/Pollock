@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\DefaultEnumConverter.cs" />
     <Compile Include="Infrastructure\EnumNameMapping.cs" />
     <Compile Include="EnumTypeConverter.cs" />
     <Compile Include="Infrastructure\EnumWithMemberRenderConverter.cs" />

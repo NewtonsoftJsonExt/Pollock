@@ -8,11 +8,6 @@ namespace Tests
     [TestFixture]
     public class EnumTemplateTests
     {
-        [TestFixtureSetUp]
-        public void OnceBeforeAnyTest()
-        {
-            EnumTemplates.Register();
-        }
         [Serializable]
         class ValueContainer
         {

@@ -3,14 +3,6 @@ using System.ComponentModel;
 using Newtonsoft.Json;
 namespace Tests
 {
-    public static class EnumTemplates
-    {
-        public static void Register()
-        {
-            Pollock.TypeConverters.RegisterEnumWithMemberRender<EnumTemplate>();
-        }
-    }
-
     [TypeConverter(typeof(Pollock.EnumTypeConverter<EnumTemplate>)),
         JsonConverter(typeof(Pollock.EnumJsonConverter<EnumTemplate>))]
     public enum EnumTemplate

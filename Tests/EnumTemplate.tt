@@ -19,14 +19,6 @@ using Newtonsoft.Json;
 #>
 namespace <#= System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("NamespaceHint") #>
 {
-    public static class <#= nameOfFile #>s
-    {
-        public static void Register()
-        {
-            Pollock.TypeConverters.RegisterEnumWithMemberRender<EnumTemplate>();
-        }
-    }
-
     [TypeConverter(typeof(Pollock.EnumTypeConverter<EnumTemplate>)),
         JsonConverter(typeof(Pollock.EnumJsonConverter<EnumTemplate>))]
     public enum <#= nameOfFile #>

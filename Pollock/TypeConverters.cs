@@ -26,22 +26,14 @@ namespace Pollock
             converters[typeof(T)]= converter;
         }
 
-        public static void RegisterEnum<T>()
-        {
-            Register<T>(new DefaultEnumConverter<T>());
-        }
-
-        public static ITypeConverter Get(Type type)
-        {
-            if (!converters.ContainsKey(type))
-            {
-                throw new Exception("Missing type with name "+type.Name);
-            }
-            return converters[type];
-        }
         public static ITypeConverter Get<T>()
         {
-            return Get(typeof(T));
+            var type = typeof(T);
+            if (!converters.ContainsKey(type))
+            {
+                RegisterEnumWithMemberRender<T>();
+            }
+            return converters[type];
         }
     }
 }
