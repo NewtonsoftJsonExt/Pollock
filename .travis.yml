@@ -1,0 +1,9 @@
+sudo: false
+language: csharp 
+solution: ./Pollock.sln
+install:
+  - nuget restore ./Pollock.sln
+  - bundle install 
+
+script: 
+  - rake test
