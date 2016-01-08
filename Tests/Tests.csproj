@@ -73,6 +73,10 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Pollock.Newtonsoft.Json\Pollock.Newtonsoft.Json.csproj">
+      <Project>{9b3bde0e-3994-4ef1-a1d1-1bb93f931f4b}</Project>
+      <Name>Pollock.Newtonsoft.Json</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pollock\Pollock.csproj">
       <Project>{7f4165be-b8d0-4d79-bd11-bbafa423ad0e}</Project>
       <Name>Pollock</Name>

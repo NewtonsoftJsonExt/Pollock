@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7F4165BE-B8D0-4D79-BD11-BBAFA423AD0E}</ProjectGuid>
+    <ProjectGuid>{9B3BDE0E-3994-4EF1-A1D1-1BB93F931F4B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pollock</RootNamespace>
-    <AssemblyName>Pollock</AssemblyName>
+    <RootNamespace>Pollock.Newtonsoft.Json</RootNamespace>
+    <AssemblyName>Pollock.Newtonsoft.Json</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -40,13 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Infrastructure\DefaultEnumConverter.cs" />
-    <Compile Include="Infrastructure\EnumNameMapping.cs" />
-    <Compile Include="EnumTypeConverter.cs" />
-    <Compile Include="Infrastructure\EnumWithMemberRenderConverter.cs" />
-    <Compile Include="ITypeConverter.cs" />
-    <Compile Include="TypeConverters.cs" />
+    <Compile Include="EnumJsonConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pollock\Pollock.csproj">
+      <Project>{7f4165be-b8d0-4d79-bd11-bbafa423ad0e}</Project>
+      <Name>Pollock</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
