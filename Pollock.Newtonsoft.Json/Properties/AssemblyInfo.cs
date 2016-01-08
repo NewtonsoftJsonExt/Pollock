@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Pollock.Newtonsoft.Json")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A small library to help with keeping enumerations in sync between javascript and c#")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("wallymathieu")]
 [assembly: AssemblyProduct("Pollock.Newtonsoft.Json")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
