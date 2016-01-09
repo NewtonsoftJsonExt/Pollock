@@ -8,26 +8,28 @@ namespace Pollock.Infrastructure
 {
     class EnumWithMemberRenderConverter<T> : ITypeConverter
     {
-        private readonly EnumNameMapping<T> mapping=new NameFromMember<T>();
-        private class NameFromMember<TA> : EnumNameMapping<TA>
+        private readonly EnumNameMapping<T> mapping;
+        public EnumWithMemberRenderConverter()
         {
-            protected override Dictionary<TA, string> TypeToStringMappingAbstract()
-            {
-                var values = Enum.GetValues(typeof(TA)).Cast<TA>();
-                return values.ToDictionary(v => v, v => GetMemberValue(v));
-            }
+            mapping = new EnumNameMapping<T>(TypeToStringMapping());
+        }
 
-            private string GetMemberValue(TA v)
+        private static Dictionary<T, string> TypeToStringMapping()
+        {
+            var values = Enum.GetValues(typeof(T)).Cast<T>();
+            return values.ToDictionary(v => v, v => GetMemberValue(v));
+        }
+
+        private static string GetMemberValue(T v)
+        {
+            var memInfo = typeof(T).GetMember(v.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(EnumMemberAttribute),
+                false);
+            if (attributes.Length == 0)
             {
-                var memInfo = typeof(TA).GetMember(v.ToString());
-                var attributes = memInfo[0].GetCustomAttributes(typeof(EnumMemberAttribute),
-                    false);
-                if (attributes.Length == 0)
-                {
-                    return v.ToString();
-                }
-                return ((EnumMemberAttribute)attributes[0]).Value;
+                return v.ToString();
             }
+            return ((EnumMemberAttribute)attributes[0]).Value;
         }
 
         public object FromString(CultureInfo culture, string value)
