@@ -1,0 +1,28 @@
+﻿<#@ template debug="false" hostspecific="True" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Web.Extensions" #>
+<#@ assembly name="System.Runtime.Serialization" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Web.Script.Serialization" #>
+<#@ import namespace="System.Runtime.Serialization" #>
+<#@ output extension=".cs" #>
+using System.Runtime.Serialization;
+using System.ComponentModel;
+using Newtonsoft.Json;
+<#  
+    var nameOfFile = Path.GetFileNameWithoutExtension(Host.TemplateFile);
+    var enumTemplate = new JavaScriptSerializer()
+        .Deserialize<Dictionary<string,string>>(File.ReadAllText(Host.ResolvePath(nameOfFile+".json")));
+#>
+namespace <#= System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("NamespaceHint") #>
+{
+    [TypeConverter(typeof(Pollock.EnumTypeConverter<EnumTemplate>)),
+        JsonConverter(typeof(Pollock.EnumJsonConverter<EnumTemplate>))]
+    public enum <#= nameOfFile #>
+    {
+        <#= String.Join(","+Environment.NewLine+"        ", enumTemplate.Select(kv=> String.Format("[EnumMember(Value=\"{0}\")] {1}", kv.Value,kv.Key))) #>
+    }
+}
