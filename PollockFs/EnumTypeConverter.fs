@@ -5,7 +5,7 @@ open System.Globalization
 
 type public EnumTypeConverter<'T when 'T : struct>() = 
     inherit TypeConverter()
-    let _converter = TypeConverters.get<'T>()
+    let c = TypeConverters.get<'T>()
 
     override this.CanConvertFrom (context, sourceType)=
         if (sourceType = typeof<string>) then
@@ -15,13 +15,13 @@ type public EnumTypeConverter<'T when 'T : struct>() =
 
     override this.ConvertFrom (context,culture, value)=
         if (value :? string) then
-            _converter.FromString(culture, (string)value)
+            c.FromString(culture, (string)value)
         else
             base.ConvertFrom(context, culture, value)
 
     override this.ConvertTo(context,culture,value, destinationType)=
         if (destinationType = typeof<string>) then
-            _converter.ToString(culture, value) :> obj
+            c.ToString(culture, value) :> obj
         else
             base.ConvertTo(context, culture, value, destinationType)
 
