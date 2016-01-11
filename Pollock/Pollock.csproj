@@ -42,9 +42,6 @@
   <ItemGroup>
     <Compile Include="Infrastructure\EnumNameMapping.cs" />
     <Compile Include="EnumTypeConverter.cs" />
-    <Compile Include="Infrastructure\EnumWithMemberRenderConverter.cs" />
-    <Compile Include="ITypeConverter.cs" />
-    <Compile Include="TypeConverters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

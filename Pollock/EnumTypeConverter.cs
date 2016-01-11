@@ -1,18 +1,40 @@
-﻿using System;
+﻿using Pollock.Infrastructure;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace Pollock
 {
     public class EnumTypeConverter<T> : TypeConverter where T: struct
     {
-        private readonly ITypeConverter _converter;
+        private readonly EnumNameMapping<T> mapping;
 
         public EnumTypeConverter()
         {
-            _converter = TypeConverters.Get<T>();
+            mapping = new EnumNameMapping<T>(TypeToStringMapping());
         }
 
+        private static Dictionary<T, string> TypeToStringMapping()
+        {
+            var values = Enum.GetValues(typeof(T)).Cast<T>();
+            return values.ToDictionary(v => v, v => GetMemberValue(v));
+        }
+
+        private static string GetMemberValue(T v)
+        {
+            var memInfo = typeof(T).GetMember(v.ToString());
+            var attributes = memInfo[0].GetCustomAttributes(typeof(EnumMemberAttribute),
+                false);
+            if (attributes.Length == 0)
+            {
+                return v.ToString();
+            }
+            return ((EnumMemberAttribute)attributes[0]).Value;
+        }
+        
         public override bool CanConvertFrom(ITypeDescriptorContext context,
    Type sourceType)
         {
@@ -28,7 +50,7 @@ namespace Pollock
         {
             if (value is string)
             {
-                return _converter.FromString(culture, (string)value);
+                return mapping.Parse((string)value);
             }
             return base.ConvertFrom(context, culture, value);
         }
@@ -38,7 +60,7 @@ namespace Pollock
         {
             if (destinationType == typeof(string))
             {
-                return _converter.ToString(culture, (T)value);
+                return mapping.ToString((T)value);
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }

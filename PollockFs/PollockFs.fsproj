@@ -54,7 +54,6 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="ITypeConverter.fs" />
     <Compile Include="RenderEnumWithMember.fs" />
-    <Compile Include="TypeConverters.fs" />
     <Compile Include="EnumTypeConverter.fs" />
     <Content Include="packages.config" />
   </ItemGroup>

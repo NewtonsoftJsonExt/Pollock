@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Globalization;
+using System.ComponentModel;
 
 namespace Pollock
 {
     public class EnumJsonConverter<T> : JsonConverter where T : struct
     {
-        private readonly ITypeConverter _converter;
+        private readonly TypeConverter _converter;
 
         public EnumJsonConverter()
         {
-            _converter = TypeConverters.Get<T>();
+            _converter = TypeDescriptor.GetConverter(typeof(T));
         }
 
         public override bool CanConvert(Type objectType)
@@ -46,12 +46,12 @@ namespace Pollock
 
         protected virtual T ParseValue(string val)
         {
-            return (T)_converter.FromString(CultureInfo.CurrentCulture, val);
+            return (T)_converter.ConvertFrom(val);
         }
 
         protected virtual string ValueToString(T value)
         {
-            return _converter.ToString(CultureInfo.CurrentCulture, value);
+            return (string)_converter.ConvertTo(value, typeof(string));
         }
     }
 }
