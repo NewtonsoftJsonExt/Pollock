@@ -6,7 +6,7 @@ $sln = File.join($dir, "Pollock.sln")
 
 desc "Install missing NuGet packages."
 task :restore do
-  NugetHelper.exec("restore #{$sln}")
+  sh("paket restore")
 end
 
 desc "build"
@@ -21,11 +21,20 @@ end
 
 task :default => ['build']
 
+$test_files = Dir.glob(File.join($dir, "*Tests", "**", "bin", "Debug", "*Tests.dll"))
+
+
 desc "test using nunit console"
 test_runner :test => [:build] do |nunit|
   nunit.exe = NugetHelper.nunit_path
-  files = Dir.glob(File.join($dir, "*Tests", "**", "bin", "Debug", "*Tests.dll"))
-  nunit.files = files 
+  nunit.files = $test_files 
+end
+
+desc "test using nunit console"
+test_runner :mono_test => [:build] do |nunit|
+  nunit.exe = NugetHelper.nunit_path
+  nunit.files = $test_files
+  nunit.parameters.add("-exclude=not_mono")
 end
 
 desc "create the nuget packages"

@@ -1,0 +1,7 @@
+source https://www.nuget.org/api/v2/
+framework >= net35
+
+nuget Newtonsoft.Json 8.0.2
+nuget NUnit 2.6.4
+nuget NUnit.Runners 2.6.4
+nuget FSharp.Core

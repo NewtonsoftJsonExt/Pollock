@@ -2,8 +2,8 @@ sudo: false
 language: csharp 
 solution: ./Pollock.sln
 install:
-  - nuget restore ./Pollock.sln
-  - bundle install 
+  - bundle install
+  - rake restore
 
 script: 
-  - rake test
+  - rake mono_test

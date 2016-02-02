@@ -15,7 +15,7 @@ namespace Tests
             public EnumTemplate Value { get; set; }
         }
 
-        [Test]
+        [Test, Category("not_mono")]
         public void JsSerializer()
         {
             const string data = @"{""value"":""Ctr""}";

@@ -1,7 +1,8 @@
 version: 1.0.{build}
 configuration: Release
 before_build:
-  - nuget restore Pollock.sln
+  - bundle install
+  - rake restore
 build:
   project: Pollock.sln
   verbosity: minimal
