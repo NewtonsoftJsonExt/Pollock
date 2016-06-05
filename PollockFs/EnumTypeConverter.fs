@@ -11,11 +11,11 @@ type EnumNameMapping<'T when 'T : struct>(?typeToStringOpt : IDictionary<'T, str
     let getMemberValue(v : 'T) : string = 
         let memInfo = t.GetMember(v.ToString())
         let enumMember = typeof<EnumMemberAttribute>
-        let attributes = memInfo.[0].GetCustomAttributes(enumMember, false).Cast<EnumMemberAttribute>() 
-                        |> Seq.toArray
-
-        if (attributes.Any()) then attributes.First().Value
-        else v.ToString()
+        let attribute = memInfo.[0].GetCustomAttributes(enumMember, false).Cast<EnumMemberAttribute>() 
+                        |> Seq.tryHead
+        match attribute with
+        | Some a -> a.Value
+        | None -> v.ToString()
 
     let typeToString = 
         match typeToStringOpt with

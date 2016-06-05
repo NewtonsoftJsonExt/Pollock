@@ -1,9 +1,5 @@
-sudo: false
-language: csharp 
-solution: ./Pollock.sln
-install:
-  - bundle install
-  - rake restore
+language: csharp
+sudo: false 
 
 script: 
-  - rake mono_test
+  - bash ./build.sh test

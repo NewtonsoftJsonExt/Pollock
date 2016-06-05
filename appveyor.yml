@@ -1,8 +1,2 @@
-version: 1.0.{build}
-configuration: Release
-before_build:
-  - bundle install
-  - rake restore
-build:
-  project: Pollock.sln
-  verbosity: minimal
+build_script:
+  - build.cmd build
