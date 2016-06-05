@@ -58,11 +58,14 @@ Target "build" (fun _ ->
     |> ignore
 )
 
+let isMono = Type.GetType ("Mono.Runtime") <> null
+
 Target "test" (fun _ ->
     !! testAssemblies
     |> NUnit (fun p ->
         { p with
             DisableShadowCopy = true
+            ExcludeCategory = if isMono then "not_mono" else "" 
             TimeOut = TimeSpan.FromMinutes 20.
             OutputFile = "TestResults.xml" })
 )
