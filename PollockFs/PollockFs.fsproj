@@ -89,4 +89,7 @@
       </ItemGroup>
     </When>
   </Choose>
+  <ItemGroup>
+    <None Include="paket.template" />
+  </ItemGroup>
 </Project>
