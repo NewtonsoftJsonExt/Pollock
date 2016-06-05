@@ -2,6 +2,7 @@ FRAMEWORK: >= NET35
 NUGET
   remote: https://www.nuget.org/api/v2
   specs:
+    FAKE (4.28)
     FSharp.Core (4.0.0.1)
     Newtonsoft.Json (8.0.2)
     NUnit (2.6.4)
